@@ -1,0 +1,52 @@
+<form #rinfo="ngForm">
+    <mat-card>
+      
+        <div>
+          <h1> Survey Title: {{active.surveyTitle}}</h1>
+          <span class="head"><app-count-down> </app-count-down></span>
+        </div>
+        <p>Description: {{active.description}}</p>
+       <p>Target Audience: {{active.targetAudience}}</p>
+      </mat-card>
+    
+      
+    <mat-card class="scrollable-content" style="margin-top: 20px;">
+      <mat-card-title>
+        Question
+      </mat-card-title>
+      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+      <div *cdkVirtualFor="let q of questionList; let i=index" >
+        <div *ngIf="i==0" style="margin-top: 1%;" class="example-item1"><h1>We Value Your FeedBack</h1></div>
+        <div *ngIf="i!=0" class="example-item">
+          <p style="margin-left: 10px;" >{{i}}&nbsp;&nbsp;{{q.questionBody}}</p>
+      
+    <div  style="margin:20px;" >
+      <div *ngIf="q.questionType=='MULTIPLE_SELECT'" >
+        <mat-radio-group aria-label="Select an option" *ngFor="let op of q.options" ngModel [name]="q.questionBody">
+          <mat-radio-button [value]="op">{{op}} &nbsp;</mat-radio-button>
+        </mat-radio-group>
+       </div>
+      <div *ngIf="q.questionType=='SINGLE_SELECT'">
+        <mat-radio-group aria-label="Select an option" *ngFor="let op of q.options" ngModel [name]="q.questionBody">
+          <mat-radio-button [value]="op">{{op}} &nbsp;</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="q.questionType=='SUBJECTIVE'">
+          <input type="text" placeholder="Enter your valuable answer" style="padding: 10px;margin-top: 3px;margin-bottom: 3px;" ngModel [name]="q.questionBody">
+        
+      </div>
+    </div>
+   
+      </div>
+        </div>
+        </cdk-virtual-scroll-viewport>
+    </mat-card>
+     
+       <div  class="example-button-row" >
+         <button  type="submit" mat-raised-button color="primary"  [routerLink]="['/home/activesurvey']"  (click)="save(rinfo)">Submit</button>
+       </div>
+    
+      </form>
+       
+    
+   
